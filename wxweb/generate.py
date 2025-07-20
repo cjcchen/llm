@@ -7,6 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from bs4 import BeautifulSoup
 import os
 
+code='utf-8'
+
 def get_current_date():
   import datetime
   today_date = datetime.date.today()
@@ -22,7 +24,7 @@ def timestamp_string_to_datetime(date):
 def get_md5(string):
   import hashlib
   md5_object = hashlib.md5()
-  md5_object.update(string.encode('utf-8'))  # 确保字符串以字节形式传入
+  md5_object.update(string.encode(code))  # 确保字符串以字节形式传入
   return md5_object.hexdigest()
 
 def change_sort_to_latest(driver):
@@ -52,9 +54,12 @@ def extract_article_content(driver, url):
     # 打开文章页面
     driver.get(url)
 
-    WebDriverWait(driver, 5).until(
-        EC.presence_of_element_located((By.ID, "js_content"))
-    )
+    try:
+      WebDriverWait(driver, 5).until(
+          EC.presence_of_element_located((By.ID, "js_content"))
+      )
+    except:
+      return None
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
 
@@ -165,6 +170,7 @@ def read_links(account):
     for title, url, date in links:
       today = date
       file_name = f"./{account}/文章/{account}_{today}_{title}.txt"
+      file_name = file_name.replace("?","")
       print("file name:",file_name)
       if os.path.exists(file_name):
         print(f"{file_name} exist")
@@ -216,7 +222,7 @@ def get_summary(account):
         f.write(content_summary)
 
 if __name__ == '__main__':
-  with open("account_name", "r", encoding='utf-8') as f:
+  with open("account_name", "r", encoding='gbk') as f:
     for account in f.readlines():
       account = account.strip()
       if(len(account) == 0):
