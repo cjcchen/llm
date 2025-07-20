@@ -10,14 +10,9 @@ import os
 code='utf-8'
 
 def sanitize_filename(filename):
-    """移除文件名中的非法字符（Windows 兼容）"""
-    # 定义非法字符模式
+    import re
     illegal_chars = r'[\\/:*?"<>|\x00-\x1f]'
-
-    # 替换非法字符
     sanitized = re.sub(illegal_chars, '', filename)
-
-    # 移除首尾空格和点（Windows 限制）
     return sanitized.strip().strip('.')
 
 def get_current_date():
