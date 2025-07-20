@@ -181,7 +181,7 @@ def read_links(account):
     for title, url, date in links:
       today = date
       file_name = f"./{account}/文章/{account}_{today}_{title}.txt"
-      file_name = sanitize_filename(filename)
+      file_name = sanitize_filename(file_name)
       print("file name:",file_name)
       if os.path.exists(file_name):
         print(f"{file_name} exist")
