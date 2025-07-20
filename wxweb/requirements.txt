@@ -2,3 +2,5 @@ selenium
 webdriver_manager
 bs4
 textrank4zh
+networkx==2.8.8
+scipy

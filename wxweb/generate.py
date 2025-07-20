@@ -47,7 +47,7 @@ def change_sort_to_latest(driver):
             EC.element_to_be_clickable((By.XPATH, "//li[text()='最新']"))
         )
         latest_option.click()
-
+        import time
         # 等待排序完成
         time.sleep(3)
         print("已按'最新'排序")
@@ -72,6 +72,7 @@ def extract_article_content(driver, url):
     soup = BeautifulSoup(driver.page_source, 'html.parser')
 
     if is_timeout:
+      import time
       time.sleep(5)
       wanning_msg = soup.find('div', class_='weui-msg__title warn')
       if wanning_msg is not None:
@@ -80,7 +81,7 @@ def extract_article_content(driver, url):
       else:
         import time
         time.sleep(10)
-        return -1
+        raise ValueError("restart")
 
     title = soup.find('h1', class_='rich_media_title').get_text(strip=True)
 
