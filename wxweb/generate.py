@@ -60,14 +60,26 @@ def extract_article_content(driver, url):
     # 打开文章页面
     driver.get(url)
 
+    is_timeout = False
     try:
       WebDriverWait(driver, 5).until(
           EC.presence_of_element_located((By.ID, "js_content"))
       )
     except:
-      return None
+      print("timeout")
+      is_timeout = True
 
     soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+    if is_timeout:
+      wanning_msg = soup.find('div', class_='weui-msg__title warn')
+      if wanning_msg is not None:
+        print("has wanning:",wanning_msg.get_text(strip=True)
+        return None
+      else:
+        import time
+        time.sleep(10)
+        return -1
 
     title = soup.find('h1', class_='rich_media_title').get_text(strip=True)
 
@@ -175,13 +187,11 @@ def read_links(account):
 
     for title, url, date in links:
       today = date
+      title = sanitize_filename(title)
       file_name = f"./{account}/文章/{account}_{today}_{title}.txt"
-      file_name = sanitize_filename(file_name)
       print("file name:",file_name)
       if os.path.exists(file_name):
         print(f"{file_name} exist")
-        with open(file_name, "r") as f:
-          data = json.load(f)
         continue
       res = extract_article_content(driver, url)
       if res is None:
