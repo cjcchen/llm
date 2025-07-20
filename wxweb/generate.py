@@ -9,6 +9,17 @@ import os
 
 code='utf-8'
 
+def sanitize_filename(filename):
+    """移除文件名中的非法字符（Windows 兼容）"""
+    # 定义非法字符模式
+    illegal_chars = r'[\\/:*?"<>|\x00-\x1f]'
+
+    # 替换非法字符
+    sanitized = re.sub(illegal_chars, '', filename)
+
+    # 移除首尾空格和点（Windows 限制）
+    return sanitized.strip().strip('.')
+
 def get_current_date():
   import datetime
   today_date = datetime.date.today()
@@ -170,7 +181,7 @@ def read_links(account):
     for title, url, date in links:
       today = date
       file_name = f"./{account}/文章/{account}_{today}_{title}.txt"
-      file_name = file_name.replace("?","")
+      file_name = sanitize_filename(filename)
       print("file name:",file_name)
       if os.path.exists(file_name):
         print(f"{file_name} exist")
