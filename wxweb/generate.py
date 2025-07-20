@@ -216,7 +216,7 @@ def get_summary(account):
         f.write(content_summary)
 
 if __name__ == '__main__':
-  with open("account_name", "r") as f:
+  with open("account_name", "r", encoding='utf-8') as f:
     for account in f.readlines():
       account = account.strip()
       if(len(account) == 0):
