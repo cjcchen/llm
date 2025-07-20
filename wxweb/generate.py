@@ -75,7 +75,7 @@ def extract_article_content(driver, url):
       time.sleep(5)
       wanning_msg = soup.find('div', class_='weui-msg__title warn')
       if wanning_msg is not None:
-        print("has wanning:",wanning_msg.get_text(strip=True)
+        print("has wanning:",wanning_msg.get_text(strip=True))
         return None
       else:
         import time
