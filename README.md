@@ -23,3 +23,6 @@
 直接进入目录运行
 
 
+# Issue
+如果出现host not found, 可以参考https://blog.csdn.net/weixin_51238373/article/details/140383863 安装一个chromedriver 
+
