@@ -1,10 +1,12 @@
+基于搜狗搜索的公众号爬虫，爬取内容放到本目录的文章目录下，并对其做归纳，归纳内容在归纳目录下。
 
 # 前提工作
 
 1. 确保系统安装了google chrome， 不是gptchrome
 2. 进入wxweb目录，使用pip安装必要的库
      pip install -r requiremens.txt
-3. 打开account_name文件输入关注的公众号。 (已经有两个默认的公众号，不需要可以删掉）
+3. 删除account_name文件并重新新建一个， 输入关注的公众号。输入的公众号可以先去[搜狗搜索](https://weixin.sogou.com/) 尝试搜索查看质量。
+   
   
 # 运行程序
 ## window
